@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="start"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+    <ion-buttons slot="end">
+        <ion-menu-button menu="end">
+          <ion-icon name="notifications"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>    
+    <ion-card class="welcome-card">
+        <button ion-item class="card-button" [routerDirection]="'forward'" [routerLink]="'/welcome'">
+            
+      <ion-img src="/assets/pictures/Banner.svg"></ion-img>
+      <ion-card-header>
+        <ion-card-subtitle>Get Started</ion-card-subtitle>
+        <ion-card-title>Mana - O App criado somente para elas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Bem vindo ao Mana. Servicos para residencia, eletronicos, informatica e linha branca. Feito por elas e para elas.</p>       
+        <br>
+        <p>Clique para instrucoes de como usar...</p>
+      </ion-card-content>
+    </button>
+    </ion-card>     
+    <ion-grid>
+        <ion-row>          
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" >Email</ion-label>
+              <ion-input [(ngModel)]="emailInput"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col >
+            <ion-item>
+              <ion-label position="floating" >Senha</ion-label>
+              <ion-input type="password" [(ngModel)]="passwordInput"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col>
+              <ion-button class="no-padding fullwidth services-button" [routerLink] ="'/register'" [routerDirection]="'forward'">Criar Conta</ion-button>         
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col>
+            <ion-button class="no-padding fullwidth services-button" (click)="login()" >Entrar</ion-button>         
+          </ion-col>
+        </ion-row>
+        <ion-row >
+          <ion-col>
+            <ion-button class="no-padding fullwidth services-button" (click)="forgotPassword()" >Esqueci minha senha</ion-button>         
+          </ion-col>
+        </ion-row>                        
+    </ion-grid>
+</ion-content>
+
+
+

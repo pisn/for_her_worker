@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "164128653128",
+    "firebase_url": "https://mana-a265a.firebaseio.com",
+    "project_id": "mana-a265a",
+    "storage_bucket": "mana-a265a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164128653128:android:6e33a4de527e0a6074bd7d",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164128653128-psol63gd7o3t2h8pn256eagd61n1qt9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLTdQCkxmUXOsWoVroCueVIBKKh0CHMdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164128653128-psol63gd7o3t2h8pn256eagd61n1qt9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

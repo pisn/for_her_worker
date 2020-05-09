@@ -1,0 +1,29 @@
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.align-text-middle {
+  display: flex;
+  align-items: center;
+}
+
+.card-button{
+  text-align : left;
+}
+
+.no-padding {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.fullwidth {
+  //width:100%; 
+  margin-left:0;
+  margin-right:0;
+  padding-left:0;
+  padding-right:0;
+  display:block;
+  text-align:center; /*This will result in centering the link text, which is probably what you want -brianjohnsondesign.com*/
+}
+

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meu Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3"><ion-img src="/assets/testAvatar.png" ></ion-img></ion-col>
+      <ion-grid>
+        <ion-row>
+          Sônia Abrantes
+        </ion-row>
+        <ion-row>
+          <font color="gray">CPF: 444.666.777-98</font>
+        </ion-row>
+        <ion-row>
+          <ion-icon name="star"></ion-icon><font color="gray">4.98</font>
+        </ion-row>
+      </ion-grid>
+      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        Avenida Jaguaré, 325<br> 
+        Bloco 4, Apartamento 91<br>      
+        São Paulo, SP<br>
+        05346-000 <br>
+        <ion-icon name="create"></ion-icon>
+      </ion-col>           
+    </ion-row>
+    <ion-row>
+      <ion-grid>
+        <ion-row>
+          Redes conectadas
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <figure class="fullwidth no-padding">              
+              <img [src]="'../../assets/icon/google-icon.png'" />                                      
+            </figure>
+          </ion-col> 
+          <ion-col>
+            <figure class="fullwidth no-padding">              
+              <img [src]="'../../assets/icon/facebook-icon.png'" />                                      
+            </figure> 
+          </ion-col>          
+          <ion-col>
+            <figure class="fullwidth no-padding">              
+              <img [src]="'../../assets/icon/linkedin-icon.png'" />                                      
+            </figure> 
+          </ion-col>
+          <ion-col>
+            <figure class="fullwidth no-padding">              
+              <img [src]="'../../assets/icon/instagram-icon.png'" />                                      
+            </figure> 
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>                        
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

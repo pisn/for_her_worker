@@ -1,0 +1,6 @@
+{
+    "/cep": {
+      "target": "http://viacep.com.br/ws",
+      "secure": false
+    }
+  }

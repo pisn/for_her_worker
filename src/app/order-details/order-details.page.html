@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalhes do seu serviço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>    
+    <ion-row>
+      <ion-col>
+        <ion-card >          
+            <ion-card-content>
+              <ion-grid>
+                  <ion-row>
+                    <ion-col><ion-img src="/assets/testAvatar.png" ></ion-img></ion-col>
+                    <ion-col size="9"> 
+                      <ion-grid>
+                        <ion-row>
+                          {{order.prestadora.nome}}
+                        </ion-row>                        
+                        <ion-row>
+                            {{convertedDistance(order.prestadora.distance)}}
+                        </ion-row>                        
+                      </ion-grid>
+                    </ion-col>                                 
+                  </ion-row>
+              </ion-grid>       
+              <ion-row>
+                <ion-col>
+                  <b>Status do Serviço: </b><font [color]="formatStatus(order.status)"> {{order.status}}</font>
+                </ion-col>
+              </ion-row>       
+              <ion-row >
+                <ion-col>
+                  <ion-list>                            
+                    <ion-item *ngFor="let subservice of order.chosenSubservices">      
+                      <ion-label>{{subservice.caption}}</ion-label>
+                      <ion-note slot="end">{{formatPreco(subservice.price)}}</ion-note>                              
+                    </ion-item>
+                    <ion-item *ngIf="order.prestadora.distancePrice > 0">      
+                      <ion-label>Transporte:</ion-label>
+                      <ion-note slot="end">{{formatPreco(order.prestadora.distancePrice)}}</ion-note>                              
+                    </ion-item>
+                    <ion-item>
+                      <ion-label><b>Total: </b></ion-label>
+                      <ion-note slot="end"><b>{{formatPreco(order.totalPrice)}}</b></ion-note>
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Endereço do serviço:</ion-label>
+                    <ion-textarea autoGrow="true" readonly="true" [(ngModel)]="order.location.name"></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Data de Preferência:</ion-label>
+                    <ion-textarea autoGrow="true" readonly="true" [(ngModel)]="order.chosenDate"></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Horário de Preferência:</ion-label>
+                    <ion-textarea autoGrow="true" readonly="true" [(ngModel)]="order.chosenTime"></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Detalhes:</ion-label>
+                    <ion-textarea autoGrow="true" readonly="true" [(ngModel)]="order.details"></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-button (click)="openChat(order)">
+                  <font size="6"><ion-icon name="chatbubbles"></ion-icon></font>
+                  <br>
+                  Chat
+                </ion-button>      
+              </ion-row>
+          </ion-card-content>            
+        </ion-card>  
+      </ion-col>
+    </ion-row>                
+  </ion-grid>
+
+</ion-content>

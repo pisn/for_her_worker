@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ordens de Serviço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let order of orders">
+    <button ion-item (click)="openOrderDetails(order)">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3"><ion-img src="/assets/testAvatar.png" ></ion-img></ion-col>
+            <ion-col>
+              <ion-grid>
+                <ion-row>
+                  <h2><b>{{order.prestadora.nome}}</b></h2>
+                </ion-row>        
+                <ion-row>
+                  <UL>
+                    <li *ngFor="let subservice of order.chosenSubservices">
+                      {{subservice.caption}}
+                    </li>
+                  </UL>                  
+                </ion-row>
+              </ion-grid>                
+            </ion-col>
+          </ion-row>          
+          <ion-row>
+            <ion-col size="5">
+              {{order.chosenDate}}
+            </ion-col>
+            <ion-col>
+              {{order.chosenTime}}
+            </ion-col>
+            <ion-col>
+              {{formatPrices(order.totalPrice)}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-grid>
+              <ion-row>
+                <b>Status do Serviço: </b><font [color]="formatStatus(order.status)"> {{order.status}}</font>
+              </ion-row>              
+            </ion-grid>
+          </ion-row>
+          <ion-row *ngIf="order.status=='Closed'">
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </button>
+  </ion-card>
+</ion-content>
+

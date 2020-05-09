@@ -1,0 +1,18 @@
+projects:
+  4HerChat:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
+        region: ap-northeast-2
+        apiId: sjl7yo4pube73mz3hehp7yrdfm
+        maxDepth: 3
+extensions:
+  amplify:
+    version: 3

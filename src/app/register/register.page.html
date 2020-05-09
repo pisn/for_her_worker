@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>register</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img src="/assets/laugh.jpg"></ion-img>
+  <ion-grid>
+    <ion-row >
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Nome Completo</ion-label>
+          <ion-input [(ngModel)] = "nomeInput"></ion-input> 
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>    
+      <ion-col>      
+        <ion-datetime [(ngModel)] = "dataNascimentoInput" [monthNames] = "customMonthNames" placeholder="Data de Nascimento" display-format="D MMMM YYYY" picker-format="DD MMMM YYYY" ></ion-datetime>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-item>
+            <ion-label position="floating">CPF</ion-label>
+            <ion-input [(ngModel)]="cpfInput" (focusout)="formatCpf()"></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="emailInput"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Senha</ion-label>
+            <ion-input type="password" [(ngModel)]="senhaInput"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">CEP</ion-label>
+          <ion-input [(ngModel)]="cepInput" (focusout)="formatCep()" ></ion-input>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Rua,Avenida, Praça... </ion-label>
+          <ion-input [disabled]="cepWorked" [(ngModel)]="logradouroInput" name="logradouro"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Cidade</ion-label>
+          <ion-input [disabled]="cepWorked" [(ngModel)]="cidadeInput"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Número</ion-label> 
+          <ion-input #numeroInputEdit type="number" [(ngModel)]="numeroInput"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Complemento</ion-label>
+          <ion-input [(ngModel)] ="complementoInput"></ion-input>          
+        </ion-item>
+      </ion-col>
+    </ion-row>    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>UF</ion-label>
+          <ion-select [disabled]="cepWorked" [(ngModel)]="ufInput" >
+            <ion-select-option *ngFor="let uf of ufs">{{uf}}</ion-select-option>            
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button class = "fullwidth" (click)="createAccount()">Criar Conta</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

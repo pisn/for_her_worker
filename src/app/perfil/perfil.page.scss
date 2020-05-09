@@ -1,0 +1,21 @@
+.padding {
+    padding: 1px !important;
+    margin: 0px !important;
+}
+
+.services-button {    
+    font-family: 'Helvetica Light';
+    //font-weight: 200;
+    font-size: 0.7em;
+    line-height: 1.5;
+}
+
+.fullwidth {
+    //width:100%; 
+    margin-left:0;
+    margin-right:0;
+    padding-left:0;
+    padding-right:0;
+    display:block;
+    text-align:center; /*This will result in centering the link text, which is probably what you want -brianjohnsondesign.com*/
+}
