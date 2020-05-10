@@ -106,7 +106,7 @@ export class HomePage {
     
     this.CognitoService.authenticate("pedro.isn1@gmail.com","Gbm@2018")//authenticate(this.emailInput,this.passwordInput)
       .then(res=> {                       
-         this.navCtrl.navigateForward('/services');
+         this.navCtrl.navigateForward('/main');
 
       },
       err =>{        

@@ -9,9 +9,10 @@ import { reject } from 'q';
 })
 export class CognitoServiceService {
   user : AWSCognito.CognitoUser;
-  userAttributes: any;
+  userAttributes: any;  
+  userName:any;
   userSession : AWSCognito.CognitoUserSession;
-  isConnected : boolean;
+  isConnected : boolean;  
 
   //replace the value with actual value 
   _POOL_DATA = {
@@ -51,7 +52,8 @@ export class CognitoServiceService {
   }
 
   authenticate(email, password) {    
-
+    this.userName = "Autenticating";
+    
     return new Promise((resolved, reject) => {
       const userPool = new AWSCognito.CognitoUserPool(this._POOL_DATA);
 
@@ -66,8 +68,7 @@ export class CognitoServiceService {
       });
       
       cognitoUser.authenticateUser(authDetails, {
-        onSuccess: result => {
-          resolved(result);
+        onSuccess: result => {          
           this.userSession = result;
           this.isConnected = true;
           this.user = cognitoUser;
@@ -81,7 +82,11 @@ export class CognitoServiceService {
             const payload = {};
             attrs.forEach(attr => (payload[attr.getName()] = attr.getValue()));            
             this.userAttributes = payload
+            console.log(this.userAttributes);
+            this.userName = this.userAttributes['name'];
           });
+
+          resolved(result);
         },
         onFailure: err => {
           reject(err);
@@ -103,7 +108,7 @@ export class CognitoServiceService {
           });
         }
       });
-    });
+    });    
   }
 
   resendEmail(email){

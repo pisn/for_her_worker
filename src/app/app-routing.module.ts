@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'perfil', loadChildren: './perfil/perfil.module#PerfilPageModule' },  
   { path: 'location-select', loadChildren: './location-select/location-select.module#LocationSelectPageModule' },
   { path: 'chat-mana', loadChildren: './chat-mana/chat-mana.module#ChatManaPageModule' },
-  { path: 'order-details', loadChildren: './order-details/order-details.module#OrderDetailsPageModule' }
+  { path: 'order-details', loadChildren: './order-details/order-details.module#OrderDetailsPageModule' },
+  { path: 'main', loadChildren: './main/main.module#MainPageModule' }
 ];
 
 @NgModule({

@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>main</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3"><ion-img src="/assets/testAvatar.png" ></ion-img></ion-col>
+      <ion-col>
+        <ion-grid>
+          <ion-row>
+            <h2><b>{{cognitoService.userName}}</b></h2>
+          </ion-row>
+          <ion-row>
+            <ion-icon name="star"></ion-icon><font color="gray">{{rating}}</font>                      
+          </ion-row>                  
+        </ion-grid>                
+      </ion-col>
+    </ion-row>                      
+  </ion-grid>
+
+  Meus próximos serviços:
+
+  <ion-card>
+    <button ion-item (click)="openOrderDetails(order)">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3"><ion-img src="/assets/testAvatar.png" ></ion-img></ion-col>
+            <ion-col>
+              <ion-grid>
+                <ion-row>
+                  <h2><b>Nome da Cliente</b></h2>
+                </ion-row>        
+                <ion-row>
+                  <ion-icon name="star"></ion-icon><font color="gray">{{rating}}</font>                      
+                </ion-row>                  
+                <ion-row>
+                  <UL>
+                    <!-- <li *ngFor="let subservice of order.chosenSubservices">
+                      {{subservice.caption}}
+                    </li> -->
+                  </UL>                  
+                </ion-row>
+              </ion-grid>                
+            </ion-col>
+          </ion-row>          
+          <ion-row>
+            <ion-col size="5">
+              Dia 
+            </ion-col>
+            <ion-col>
+              Hore
+            </ion-col>
+            <ion-col>
+              Preco
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-grid>
+              <ion-row>
+                <b>Status do Serviço: </b>Status <!--<font [color]="formatStatus(order.status)"> {{order.status}}</font>-->
+              </ion-row>              
+            </ion-grid>
+          </ion-row>
+          <!-- <ion-row *ngIf="order.status=='Closed'"> -->
+          <ion-row>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+            <ion-col><ion-icon name="star-outline"></ion-icon></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </button>
+  </ion-card>
+
+</ion-content>
