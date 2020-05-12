@@ -1,6 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>main</ion-title>
+    <ion-title>Início</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="start"></ion-menu-button>      
+    </ion-buttons>
+    <ion-buttons slot="end">            
+        <ion-menu-button menu="end">
+          <ion-icon name="notifications"></ion-icon>
+        </ion-menu-button>
+        <!-- <ion-icon slot="icon-only" name="notifications"></ion-icon> -->      
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -19,6 +28,16 @@
         </ion-grid>                
       </ion-col>
     </ion-row>                      
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      Parece que você ainda não escolheu sua base.
+      Inicie agora seu perfil configurando sua base de trabalho!
+    </ion-row>   
+    <ion-row>
+      <ion-button (click) = "launchLocationPage()">Selecione sua base de trabalho</ion-button>
+    </ion-row>
   </ion-grid>
 
   Meus próximos serviços:

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CognitoServiceService } from '../cognito-service.service';
 import {AwsApiConnectService} from '../aws-api-connect.service'
+import { LocationSelectPage } from '../location-select/location-select.page';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -12,7 +14,7 @@ export class PerfilPage implements OnInit {
   cpf: string;
   subserviceDetails: Array<any>;  
 
-  constructor(private cognitoService: CognitoServiceService, private awsService : AwsApiConnectService) { }
+  constructor(private cognitoService: CognitoServiceService, private awsService : AwsApiConnectService, private modalCtrl: ModalController, private alertController: AlertController) { }
 
   ngOnInit() {
     this.cpf = this.cognitoService.userAttributes['custom:cpf'];
@@ -21,5 +23,5 @@ export class PerfilPage implements OnInit {
       this.subserviceDetails = result.Items;      
       
     });
-  }  
+  }   
 }
