@@ -53,6 +53,7 @@ export class LocationSelectPage implements OnInit{
   ngOnInit(){
     this.geolocation.getCurrentPosition().then((position) => {
       let mapLoaded = this.maps.init(this.mapElement.nativeElement, this.pleaseConnect.nativeElement, position.coords.latitude, position.coords.longitude).then(() => {
+        
 
         this.autocompleteService = new google.maps.places.AutocompleteService();
         this.placesService = new google.maps.places.PlacesService(this.maps.map);
@@ -109,14 +110,19 @@ export class LocationSelectPage implements OnInit{
   }
   
 
-  setLocation(latitude: number, longitude: number, name: string){
+  setLocation(latitude: number, longitude: number, streetName: string, number: number, postalCode: number, city: string, state: string, fullAddress: string){
     let location = {
         lat: latitude,
         lng: longitude,
-        name: name        
+        streetName: streetName,
+        number: number,
+        postalCode: postalCode,
+        city: city,
+        state: state,
+        fullAddress: fullAddress
     };
 
-    this.query = name;   
+    this.query = fullAddress;   
 
     this.location = location;      
     this.cdRef.detectChanges();
@@ -127,8 +133,16 @@ export class LocationSelectPage implements OnInit{
       this.places = [];            
       
       this.placesService.getDetails({placeId: place.place_id}, (details) => {
+        
+        console.log(details)
+        const locationDict = {};
 
-        this.setLocation(details.geometry.location.lat(),details.geometry.location.lng(), place.description);        
+        details.address_components.forEach(element => {
+            locationDict[element.types[0]] = element.short_name;
+            console.log(locationDict[element.types[0]]);
+          });
+          
+        this.setLocation(details.geometry.location.lat(),details.geometry.location.lng(), locationDict['route'], locationDict['street_number'], locationDict['postal_code'], locationDict['administrative_area_level_2'], locationDict['administrative_area_level_1'], place.description);        
         this.maps.map.setCenter({lat: details.geometry.location.lat(), lng: details.geometry.location.lng()});                            
 
         //   this.zone.run(() => {
@@ -189,7 +203,15 @@ export class LocationSelectPage implements OnInit{
       if (status === 'OK') {
         if (results[0]) {          
           console.log(results[0].formatted_address);
-          this.setLocation(latitude, longitude, results[0].formatted_address);                    
+          
+          const locationDict = {};
+
+          results[0].address_components.forEach(element => {
+            locationDict[element.types[0]] = element.short_name;    
+            console.log(locationDict[element.types[0]]);
+          });
+
+          this.setLocation(latitude, longitude, locationDict['route'], locationDict['street_number'], locationDict['postal_code'], locationDict['administrative_area_level_2'], locationDict['administrative_area_level_1'], results[0].formatted_address);                    
           
         } else {
           this.query = 'No results found';          

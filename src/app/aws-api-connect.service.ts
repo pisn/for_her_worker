@@ -63,6 +63,30 @@ export class AwsApiConnectService {
 
   }
 
+  getSubservices(subservice){    
+
+    return new Promise((resolve,reject) => {
+      var headersDict = {
+        'Accept': "application/json", 
+        'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
+      };
+      
+      var requestOptions = {
+        headers : new HttpHeaders(headersDict)
+      };              
+      
+      this.httpService.getHttpClient().get(this.API_URL + "subservicedetails?subservice=" + subservice,requestOptions)
+              .subscribe((result: any) => {                              
+                  resolve(result);                    
+              },
+              (error) => {                    
+                  console.log(error);
+                  reject(error);
+              });
+      
+      });
+  }
+
   setNewServiceOrder(prestadora: any, subservices : Array<string>, chosenDate : Date, chosenTime: string, details: string, location: Array<any>){
 
     return new Promise((resolve,reject) => {
@@ -102,6 +126,38 @@ export class AwsApiConnectService {
       console.log(JSON.stringify(requestBody).toString());
 
       this.httpService.getHttpClient().post(this.API_URL + "serviceorder", JSON.stringify(requestBody),requestOptions)
+              .subscribe((result: any) => {                    
+                  resolve(result);                    
+              },
+              (error) => {                    
+                  console.log(error);
+                  reject(error);
+              });
+      
+    });
+
+  }
+
+  insertToTable(table: string, item: any){
+
+    return new Promise((resolve,reject) => {
+      var headersDict = {
+        'Accept': "application/json", 
+        'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
+      };
+      
+      var requestOptions = {
+        headers : new HttpHeaders(headersDict)
+      };                    
+
+      var requestBody = {
+          table: table,
+          item: item
+      };
+      
+      console.log(JSON.stringify(requestBody).toString());
+
+      this.httpService.getHttpClient().post(this.API_URL + "insertapi", JSON.stringify(requestBody),requestOptions)
               .subscribe((result: any) => {                    
                   resolve(result);                    
               },
