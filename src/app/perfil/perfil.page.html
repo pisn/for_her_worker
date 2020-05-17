@@ -23,37 +23,40 @@
         </ion-row>
       </ion-grid>
       
-    </ion-row>
+    </ion-row>       
     <ion-row>
-      <ion-col>        
-        Avenida Jaguaré, 325<br> 
-        Bloco 4, Apartamento 91<br>      
-        São Paulo, SP<br>
-        05346-000 <br>
-        <ion-icon name="create"></ion-icon>
-      </ion-col>           
-    </ion-row>     
-    <ion-row>
-      <ion-list>
-        <ion-item>
-          <b>Serviços que eu presto:</b><ion-icon name="create"></ion-icon>
-        </ion-item>    
-        <ion-item *ngFor="let service of services">                
-          {{service.caption}}
-          <ion-list>
-            <ion-item *ngFor="let subservice of getSubservices(service)">
-              {{subservice.caption}}
-              <ion-list>
-                <ion-item *ngFor="let subserviceDetail of getSubserviceDetails(subservice)">
-                  {{subserviceDetail.caption}}
-                </ion-item>
-              </ion-list>
-            </ion-item>
-          </ion-list>
-          <!-- <ion-label>{{subserviceDetailsCaptions[service].caption}}</ion-label>           -->
-        </ion-item>
-      </ion-list>
+
     </ion-row>
   </ion-grid>
+  <ion-list class="fullwidth">
+    <ion-item>
+      <b>Serviços que eu presto:</b><ion-icon name="create"></ion-icon>
+    </ion-item>    
+    <ion-item *ngFor="let service of services; let i=index" (click)="toggleLevel1(i)">    
+      <ion-grid>
+      <ion-row>
+        <ion-label>{{service.caption}}</ion-label>
+      </ion-row>
+      <ion-row>
+        <ion-list class="fullwidth" *ngIf="isLevel1Shown(i)">
+          <ion-item *ngFor="let subservice of getSubservices(service); let j=index" (click)="toggleLevel2(j)">
+            <ion-grid>
+              <ion-row>
+                <ion-label>{{subservice.caption}}</ion-label>
+              </ion-row>
+              <ion-row>
+                <ion-list class="fullwidth" *ngIf="isLevel2Shown(j)">
+                  <ion-item *ngFor="let subserviceDetail of getSubserviceDetails(subservice)">
+                    <ion-label>{{subserviceDetail.caption}}</ion-label>
 
+                  </ion-item>
+                </ion-list>
+              </ion-row>
+            </ion-grid>
+          </ion-item>        
+        </ion-list>          
+      </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
 </ion-content>

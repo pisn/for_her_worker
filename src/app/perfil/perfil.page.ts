@@ -19,6 +19,9 @@ export class PerfilPage implements OnInit {
   prestadoraServices: Array<string>;
   assembledServiceList: Array<any>;
 
+  showLevel1: number;
+  showLevel2: number;
+
   constructor(private cognitoService: CognitoServiceService, private awsService : AwsApiConnectService, private modalCtrl: ModalController, private alertController: AlertController, private servicesHandler : ServicesHandlerService) { }
 
   ngOnInit() {
@@ -81,4 +84,31 @@ export class PerfilPage implements OnInit {
     }, subservice.subservice);
 
   }
+
+  toggleLevel1(idx) {
+    if (this.isLevel1Shown(idx)) {
+      this.showLevel1 = null;
+    } else {
+      this.showLevel1 = idx;
+    }
+  };
+  
+  toggleLevel2(idx) {
+    if (this.isLevel2Shown(idx)) {
+      this.showLevel1 = null;
+      this.showLevel2 = null;
+    } else {
+      this.showLevel1 = idx;
+      this.showLevel2 = idx;
+    }
+  };
+
+  isLevel1Shown(idx) {
+    return this.showLevel1 === idx;
+  };
+  
+  isLevel2Shown(idx) {
+    return this.showLevel2 === idx;
+  };
+
 }
