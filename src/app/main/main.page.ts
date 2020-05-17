@@ -13,6 +13,7 @@ export class MainPage implements OnInit {
 
   name: string;
   rating: number;
+  prestadoraProfile: any;
 
   constructor(private cognitoService: CognitoServiceService, private awsService : AwsApiConnectService, private alertController: AlertController, private modalCtrl: ModalController) { }
 
@@ -20,6 +21,11 @@ export class MainPage implements OnInit {
     
     this.name = this.cognitoService.userName;
     this.rating = 4.8;
+
+    this.awsService.getPrestadoraProfile().then((res : any) => {
+        this.prestadoraProfile = res.body;
+        console.log(res);
+    });
   }
 
   async presentAlertAddress () {

@@ -38,8 +38,8 @@
         <ion-item>
           <b>Serviços que eu presto:</b><ion-icon name="create"></ion-icon>
         </ion-item>    
-        <ion-item *ngFor="let d of subserviceDetails; let i = index">      
-          <ion-label>{{d.caption}}</ion-label>          
+        <ion-item *ngFor="let service of prestadoraServices">                
+          <ion-label>{{subserviceDetailsCaptions[service].caption}}</ion-label>          
         </ion-item>
       </ion-list>
     </ion-row>

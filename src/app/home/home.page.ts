@@ -5,6 +5,7 @@ import { reject } from 'q';
 import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { resolve } from 'url';
 import { LocationSelectPage } from '../location-select/location-select.page';
+import { AwsApiConnectService } from '../aws-api-connect.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomePage {
   emailInput:string;
   passwordInput:string;
 
-  constructor(public CognitoService: CognitoServiceService, public navCtrl : NavController, public alertController : AlertController, public modalCtrl : ModalController) {}
+  constructor(public CognitoService: CognitoServiceService, public navCtrl : NavController, public alertController : AlertController, public modalCtrl : ModalController, private awsServices : AwsApiConnectService) {}
 
 
   async presentAlertUserNotFound() {
@@ -107,7 +108,6 @@ export class HomePage {
     this.CognitoService.authenticate("pedro.isn1@gmail.com","Gbm@2018")//authenticate(this.emailInput,this.passwordInput)
       .then(res=> {                       
          this.navCtrl.navigateForward('/main');
-
       },
       err =>{        
         console.log(err.name);

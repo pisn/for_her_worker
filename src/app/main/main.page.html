@@ -30,7 +30,7 @@
     </ion-row>                      
   </ion-grid>
 
-  <ion-grid>
+  <ion-grid *ngIf="prestadoraProfile == null">
     <ion-row>
       Parece que você ainda não escolheu sua base.
       Inicie agora seu perfil configurando sua base de trabalho!
