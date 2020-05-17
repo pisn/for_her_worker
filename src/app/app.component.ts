@@ -60,9 +60,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private cognitoService : CognitoServiceService,
-    private awsApiConnectService : AwsApiConnectService,
-    private utils: CommonUtilsService
+    private cognitoService : CognitoServiceService    
   ) {
     this.initializeApp();
   }

@@ -63,11 +63,11 @@ export class AwsApiConnectService {
 
   }
 
-  getSubservices(subservice){    
+  getSubservicesDetails(subservice){    
 
     return new Promise((resolve,reject) => {
       var headersDict = {
-        'Accept': "application/json", 
+        'Content-Type': "application/json", 
         'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
       };
       
@@ -76,6 +76,29 @@ export class AwsApiConnectService {
       };              
       
       this.httpService.getHttpClient().get(this.API_URL + "subservicedetails?subservice=" + subservice,requestOptions)
+              .subscribe((result: any) => {                                                
+                  resolve(result);                    
+              },
+              (error) => {                    
+                  console.log(error);
+                  reject(error);
+              });     
+      });
+  }
+
+  getSubservices(service){    
+
+    return new Promise((resolve,reject) => {
+      var headersDict = {
+        'Content-Type': "application/json", 
+        'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
+      };
+      
+      var requestOptions = {
+        headers : new HttpHeaders(headersDict)
+      };              
+      
+      this.httpService.getHttpClient().get(this.API_URL + "subservices?service=" + service,requestOptions)
               .subscribe((result: any) => {                              
                   resolve(result);                    
               },
@@ -168,6 +191,30 @@ export class AwsApiConnectService {
       
     });
 
+  }
+
+  getServices(){    
+
+    return new Promise((resolve,reject) => {
+      var headersDict = {
+        'Content-Type': "application/json", 
+        'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
+      };
+      
+      var requestOptions = {
+        headers : new HttpHeaders(headersDict)
+      };              
+      
+      this.httpService.getHttpClient().get(this.API_URL + "services",requestOptions)
+              .subscribe((result: any) => {                              
+                  resolve(result);                    
+              },
+              (error) => {                    
+                  console.log(error);
+                  reject(error);
+              });
+      
+   });
   }
 
   getPrestadoraProfile(){
