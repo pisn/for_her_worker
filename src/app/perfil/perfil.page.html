@@ -36,6 +36,7 @@
       <ion-grid>
       <ion-row>
         <ion-label>{{service.caption}}</ion-label>
+        <ion-icon item-right [name]="isLevel1Shown('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
       </ion-row>
       <ion-row>
         <ion-list class="fullwidth" *ngIf="isLevel1Shown('idx' + i)">
@@ -43,6 +44,7 @@
             <ion-grid>
               <ion-row>
                 <ion-label>{{subservice.caption}}</ion-label>
+                <ion-icon item-right [name]="isLevel2Shown('idx'+i+'idx'+j) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
               </ion-row>
               <ion-row>
                 <ion-list class="fullwidth" *ngIf="isLevel2Shown('idx' + i + 'idx' + j)">
