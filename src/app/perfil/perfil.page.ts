@@ -19,8 +19,8 @@ export class PerfilPage implements OnInit {
   prestadoraServices: Array<string>;
   assembledServiceList: Array<any>;
 
-  showLevel1: number;
-  showLevel2: number;
+  showLevel1: any;
+  showLevel2: any;
 
   constructor(private cognitoService: CognitoServiceService, private awsService : AwsApiConnectService, private modalCtrl: ModalController, private alertController: AlertController, private servicesHandler : ServicesHandlerService) { }
 
@@ -85,7 +85,7 @@ export class PerfilPage implements OnInit {
 
   }
 
-  toggleLevel1(idx) {
+  toggleLevel1(idx) {    
     if (this.isLevel1Shown(idx)) {
       this.showLevel1 = null;
     } else {
@@ -93,7 +93,7 @@ export class PerfilPage implements OnInit {
     }
   };
   
-  toggleLevel2(idx) {
+  toggleLevel2(idx) {    
     if (this.isLevel2Shown(idx)) {
       this.showLevel1 = null;
       this.showLevel2 = null;
