@@ -51,12 +51,34 @@ export class PerfilPage implements OnInit {
 
   }   
 
-  assembleList(){
-    console.log('Assemble!');
+  assembleList(){   
 
     this.subservicesDetails = this.subservicesDetails.filter(function(value) {
       return this.prestadoraServices.includes(value.serviceDetail);
     }, this);
+
     
+    this.subservices = this.subservices.filter(function(value) {
+        return this.includes(value.subservice)
+    },this.subservicesDetails.map(function(item) {return item.subservice}));
+    
+
+    this.services = this.services.filter(function(value) {
+      return this.includes(value.service)
+    }, this.subservices.map(function(item) {return item.service}));      
+  }
+
+  getSubservices(service){
+    console.log("Running for:" + service)
+    return this.subservices.filter(function(value) {
+      return value.service == this;
+    },service.service);
+  }
+
+  getSubserviceDetails(subservice){
+    return this.subservicesDetails.filter(function(value) {
+      return value.subservice == this;
+    }, subservice.subservice);
+
   }
 }
