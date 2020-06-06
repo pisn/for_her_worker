@@ -14,11 +14,15 @@ export class PerfilPage implements OnInit {
 
   cpf: string;    
   subservices: Array<any>;
+  subservicesShow: Array<any>;
   services:Array<any>;
+  servicesShow:Array<any>;
   subservicesDetails:Array<any>;
+  subservicesDetailsShow:Array<any>; //Filtrado para prestados 
   prestadoraServices: Array<string>;
   assembledServiceList: Array<any>;
-
+  
+  editValuesMode: boolean;
   showLevel1: any;
   showLevel2: any;
 
@@ -26,7 +30,7 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.cpf = this.cognitoService.userAttributes['custom:cpf'];
-
+    this.editValuesMode = false;
     
     let promiseDetails = this.servicesHandler.getSubserviceDetails();
     promiseDetails.then((res) => {
@@ -57,35 +61,43 @@ export class PerfilPage implements OnInit {
 
   assembleList(){   
 
-    this.subservicesDetails = this.subservicesDetails.filter(function(value) {
-      return this.prestadoraServices.includes(value.serviceDetail);
-    }, this);
+    if(!this.editValuesMode){ //Filtrar por subserviços que a prestadora de fato presta
+      this.subservicesDetailsShow = this.subservicesDetails.filter(function(value) {
+        return this.prestadoraServices.includes(value.serviceDetail);
+      }, this);
+    }     
+    else {
+      this.subservicesDetailsShow = this.subservicesDetails;
+    }
 
-    
-    this.subservices = this.subservices.filter(function(value) {
+    //Trazendo subservicos associados aos serviceDetails puxados
+    this.subservicesShow = this.subservices.filter(function(value) {
         return this.includes(value.subservice)
-    },this.subservicesDetails.map(function(item) {return item.subservice}));
+    },this.subservicesDetailsShow.map(function(item) {return item.subservice}));
     
-
-    this.services = this.services.filter(function(value) {
+    //trazendo os servicos associados aos subservicos puxados
+    this.servicesShow = this.services.filter(function(value) {
       return this.includes(value.service)
-    }, this.subservices.map(function(item) {return item.service}));      
+    }, this.subservicesShow.map(function(item) {return item.service}));      
   }
 
+  //Trazer subservices associados ao servico (param)
   getSubservices(service){
     console.log("Running for:" + service)
-    return this.subservices.filter(function(value) {
+    return this.subservicesShow.filter(function(value) {
       return value.service == this;
     },service.service);
   }
 
+  //Trazer subserviceDetails associados ao subservice(param)
   getSubserviceDetails(subservice){
-    return this.subservicesDetails.filter(function(value) {
+    return this.subservicesDetailsShow.filter(function(value) {
       return value.subservice == this;
     }, subservice.subservice);
 
   }
 
+  //Abrir primeiro nivel da lista sanfonada
   toggleLevel1(idx) {    
     if (this.isLevel1Shown(idx)) {
       this.showLevel1 = null;
@@ -94,6 +106,8 @@ export class PerfilPage implements OnInit {
     }
   };
   
+
+  //Abrir segundo nivel da lista sanfonada
   toggleLevel2(idx) {    
     if (this.isLevel2Shown(idx)) {
       this.showLevel1 = null;
@@ -104,6 +118,11 @@ export class PerfilPage implements OnInit {
     }
   };
 
+  toogleEditValuesMode(){
+    this.editValuesMode = !this.editValuesMode;
+    this.assembleList();
+  }
+
   isLevel1Shown(idx) {
     return this.showLevel1 === idx;
   };
@@ -111,5 +130,9 @@ export class PerfilPage implements OnInit {
   isLevel2Shown(idx) {
     return this.showLevel2 === idx;
   };
+
+  falseTest(event) {
+    event.stopPropagation();
+  }
 
 }
