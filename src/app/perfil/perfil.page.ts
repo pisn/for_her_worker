@@ -27,6 +27,7 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.cpf = this.cognitoService.userAttributes['custom:cpf'];
 
+    
     let promiseDetails = this.servicesHandler.getSubserviceDetails();
     promiseDetails.then((res) => {
       console.log(res)

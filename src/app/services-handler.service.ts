@@ -15,49 +15,48 @@ export class ServicesHandlerService {
 
   getServices(){
     return new Promise<any>((resolve) => {
-      if(this._serviceDetails == null){
-        console.log('Pedindo requisicao');
+      if(this._services == null){
+        console.log('Pedindo requisicao 1');
         return this.awsService.getServices().then((res: any) => {
-          this._serviceDetails = res.Items;
+          this._services = res.Items;
           resolve(res.Items);
         });
       }
       else {        
-        console.log('Nao fazendo requisicao!');
-        resolve(this._serviceDetails);        
+        console.log('Nao fazendo requisicao 1!');
+        resolve(this._services);        
       }
     });
   }
 
-  getSubservices(): Promise<any> {
-    if(this._subservices == null){
-      return new Promise<any>((resolve) => {
-        if(this._serviceDetails == null){
-          console.log('Pedindo requisicao');
-          return this.awsService.getSubservices("All").then((res: any) => {
-            this._serviceDetails = res.Items;
-            resolve(res.Items);
-          });
-        }
-        else {        
-          console.log('Nao fazendo requisicao!');
-          resolve(this._serviceDetails);        
-        }
-      });
-    }
+  getSubservices(): Promise<any> {    
+    return new Promise<any>((resolve) => {
+      if(this._subservices == null){
+        console.log('Pedindo requisicao 3');
+        return this.awsService.getSubservices("All").then((res: any) => {
+          this._subservices = res.Items;            
+          resolve(res.Items);
+        });
+      }
+      else {        
+        console.log('Nao fazendo requisicao! 3');
+        resolve(this._subservices);        
+      }
+    });
+    
   }
 
   getSubserviceDetails():Promise<any> {
     return new Promise<any>((resolve) => {
       if(this._serviceDetails == null){
-        console.log('Pedindo requisicao');
+        console.log('Pedindo requisicao 2');
         return this.awsService.getSubservicesDetails("All").then((res: any) => {
           this._serviceDetails = res.Items;
           resolve(res.Items);
         });
       }
       else {        
-        console.log('Nao fazendo requisicao!');
+        console.log('Nao fazendo requisicao! 2');
         resolve(this._serviceDetails);        
       }
     });    
