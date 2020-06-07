@@ -242,4 +242,37 @@ export class AwsApiConnectService {
     });
 
   }
+
+  updatePrestadorasServiceList(serviceList) {
+    return new Promise((resolve,reject) => {
+      var headersDict = {
+        'Content-Type': "application/json", 
+        'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
+      };
+      
+      var requestOptions = {
+        headers : new HttpHeaders(headersDict)
+      };                               
+      
+      var bodyServiceList = {};
+
+      serviceList.forEach(element => { //Num primeiro momento, consideraremos a pricetable 0.
+        bodyServiceList[element] = 0;
+      });
+
+      var body = {
+        subserviceDetailsList : bodyServiceList
+      };
+
+      this.httpService.getHttpClient().post(this.API_URL + "prestadoraprofile", body, requestOptions)
+              .subscribe((result: any) => {                                      
+                  resolve(result);                    
+              },
+              (error) => {                    
+                  console.log(error);
+                  reject(error);
+              });
+      
+    });
+  }
 }

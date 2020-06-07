@@ -51,8 +51,8 @@
               </ion-row>
               <ion-row>
                 <ion-list class="fullwidth" *ngIf="isLevel2Shown('idx' + i + 'idx' + j)">
-                  <ion-item *ngFor="let subserviceDetail of getSubserviceDetails(subservice)" (click)="falseTest($event)">
-                    <ion-checkbox *ngIf="editValuesMode"></ion-checkbox>
+                  <ion-item *ngFor="let subserviceDetail of getSubserviceDetails(subservice)" (click)="stopPropagation($event)">
+                    <ion-checkbox [(ngModel)]="subserviceDetail.isActive" *ngIf="editValuesMode"></ion-checkbox>
                     <ion-label>{{subserviceDetail.caption}}</ion-label>                    
                   </ion-item>
                 </ion-list>
@@ -64,6 +64,6 @@
       </ion-grid>
     </ion-item>
   </ion-list>
-  <ion-button *ngIf="editValuesMode" class="fullwidth">Confirmar alterações</ion-button>
-  <ion-button *ngIf="editValuesMode" class="fullwidth redBackground">Descartar alterações</ion-button>
+  <ion-button *ngIf="editValuesMode" (click)="updateServices()" class="fullwidth">Confirmar alterações</ion-button>
+  <ion-button *ngIf="editValuesMode" (click)="cancelUpdate()" class="fullwidth redBackground">Descartar alterações</ion-button>
 </ion-content>

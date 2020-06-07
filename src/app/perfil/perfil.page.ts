@@ -29,6 +29,10 @@ export class PerfilPage implements OnInit {
   constructor(private cognitoService: CognitoServiceService, private awsService : AwsApiConnectService, private modalCtrl: ModalController, private alertController: AlertController, private servicesHandler : ServicesHandlerService) { }
 
   ngOnInit() {
+    this.updateAllInfo();
+  }   
+
+  updateAllInfo() {
     this.cpf = this.cognitoService.userAttributes['custom:cpf'];
     this.editValuesMode = false;
     
@@ -56,8 +60,7 @@ export class PerfilPage implements OnInit {
     Promise.all([promiseProfile, promiseDetails, promiseServices, promiseSubservices]).then(() => {
         this.assembleList();
     });
-
-  }   
+  }
 
   assembleList(){   
 
@@ -67,8 +70,12 @@ export class PerfilPage implements OnInit {
       }, this);
     }     
     else {
-      this.subservicesDetailsShow = this.subservicesDetails;
+      this.subservicesDetailsShow = this.subservicesDetails;      
     }
+
+    this.subservicesDetailsShow.forEach(item => {
+      item.isActive = this.prestadoraServices.includes(item.serviceDetail)
+    });
 
     //Trazendo subservicos associados aos serviceDetails puxados
     this.subservicesShow = this.subservices.filter(function(value) {
@@ -82,8 +89,7 @@ export class PerfilPage implements OnInit {
   }
 
   //Trazer subservices associados ao servico (param)
-  getSubservices(service){
-    console.log("Running for:" + service)
+  getSubservices(service){    
     return this.subservicesShow.filter(function(value) {
       return value.service == this;
     },service.service);
@@ -91,10 +97,11 @@ export class PerfilPage implements OnInit {
 
   //Trazer subserviceDetails associados ao subservice(param)
   getSubserviceDetails(subservice){
-    return this.subservicesDetailsShow.filter(function(value) {
+    var d = this.subservicesDetailsShow.filter(function(value) {
       return value.subservice == this;
-    }, subservice.subservice);
+    }, subservice.subservice);   
 
+    return d;
   }
 
   //Abrir primeiro nivel da lista sanfonada
@@ -131,8 +138,21 @@ export class PerfilPage implements OnInit {
     return this.showLevel2 === idx;
   };
 
-  falseTest(event) {
+  stopPropagation(event) {
     event.stopPropagation();
+  }
+
+  updateServices() {
+      var updatedList = this.subservicesDetailsShow.filter(function (item) { return item.isActive; }).map(function(item) { return item.serviceDetail;});
+
+      this.awsService.updatePrestadorasServiceList(updatedList).then((res0 => {
+        this.updateAllInfo();
+      }));      
+  }
+
+  cancelUpdate(){
+      this.editValuesMode = false;
+      this.assembleList();
   }
 
 }

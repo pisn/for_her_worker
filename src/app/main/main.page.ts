@@ -56,6 +56,7 @@ export class MainPage implements OnInit {
           longitude: location.data.lng
         },
         nome: this.cognitoService.userName,
+        priceTable: {},
         rating: 5
       }
 
