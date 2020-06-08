@@ -60,7 +60,7 @@ export class MainPage implements OnInit {
         rating: 5
       }
 
-      this.awsService.insertToTable("prestadoras", newPrestadora);
+      this.awsService.newPrestadoraProfile(newPrestadora);
     })
   }
 

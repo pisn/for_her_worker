@@ -21,7 +21,7 @@ export class AppComponent {
     },
     {
       title: 'Home',
-      url: '/home',
+      url: '/main',
       icon: 'home',
       restricted: false
     },    
