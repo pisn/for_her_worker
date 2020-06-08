@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {CognitoServiceService} from '../cognito-service.service';
 import { GeneralUtilitiesModule} from '../general-utilities/general-utilities.module';
 import { NavController, ToastController } from '@ionic/angular';
-
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import {HttpService} from '../http.service';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
@@ -18,7 +18,7 @@ export class RegisterPage implements OnInit {
   DECIMAL_SEPARATOR=".";
   GROUP_SEPARATOR=",";
 
-  constructor(private cognitoService : CognitoServiceService, private navCtrl : NavController, private toastController : ToastController, private httpService: HttpService) {     
+  constructor(private cognitoService : CognitoServiceService, private navCtrl : NavController, private toastController : ToastController, private httpService: HttpService, private camera: Camera) {     
   }
 
   nomeInput: string;
@@ -205,6 +205,23 @@ export class RegisterPage implements OnInit {
         })
 
 
+  }
+
+  async TesteCamera() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
   }
 
 }

@@ -243,6 +243,33 @@ export class AwsApiConnectService {
 
   }
 
+
+  newPrestadoraProfile(prestadoraProfile){
+
+    return new Promise((resolve,reject) => {
+      var headersDict = {
+        'Content-Type': "application/json", 
+        'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
+      };
+      
+      var requestOptions = {
+        headers : new HttpHeaders(headersDict)
+      };                               
+      
+
+      this.httpService.getHttpClient().post(this.API_URL + "prestadoraprofile", {"prestadora" : prestadoraProfile} ,requestOptions)
+              .subscribe((result: any) => {                    
+                  resolve(result);                    
+              },
+              (error) => {                    
+                  console.log(error);
+                  reject(error);
+              });
+      
+    });
+
+  }
+
   updatePrestadorasServiceList(serviceList) {
     return new Promise((resolve,reject) => {
       var headersDict = {

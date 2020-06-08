@@ -95,7 +95,8 @@
         "ANDROID_SUPPORT_V13_VERSION": "27.+",
         "FCM_VERSION": "17.0.+"
       },
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "browser",

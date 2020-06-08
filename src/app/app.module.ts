@@ -17,6 +17,8 @@ import { LocationSelectPage } from './location-select/location-select.page';
 import { LocationSelectPageModule } from './location-select/location-select.module';
 import { ChatManaPage } from './chat-mana/chat-mana.page';
 import {ServicesHandlerService} from './services-handler.service';
+import { Camera } from '@ionic-native/camera/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +33,7 @@ import {ServicesHandlerService} from './services-handler.service';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     Geolocation,
     CognitoServiceService,
     ConnectivityService,
