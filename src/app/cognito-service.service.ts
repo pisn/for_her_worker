@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as AWSCognito from 'amazon-cognito-identity-js';
 import Amplify, {Auth} from 'aws-amplify';
+import * as aws from 'aws-sdk';
 import { reject } from 'q';
+import { AwsApiConnectService } from './aws-api-connect.service';
 
 
 @Injectable({
@@ -75,7 +77,7 @@ export class CognitoServiceService {
 
           Auth.signIn(email, password).then(res => {
             console.log('Logged in Amplify')
-          })          
+          })                    
 
           this.user.getUserAttributes((err, attrs) => {
             

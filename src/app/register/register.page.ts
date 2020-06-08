@@ -6,6 +6,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import {HttpService} from '../http.service';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
+import { AwsApiConnectService } from '../aws-api-connect.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ export class RegisterPage implements OnInit {
   DECIMAL_SEPARATOR=".";
   GROUP_SEPARATOR=",";
 
-  constructor(private cognitoService : CognitoServiceService, private navCtrl : NavController, private toastController : ToastController, private httpService: HttpService, private camera: Camera) {     
+  constructor(private cognitoService : CognitoServiceService, private navCtrl : NavController, private toastController : ToastController, private httpService: HttpService, private camera: Camera, private awsServices : AwsApiConnectService) {     
   }
 
   nomeInput: string;
@@ -210,15 +211,17 @@ export class RegisterPage implements OnInit {
   async TesteCamera() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      targetHeight: 100,
+      targetWidth: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
     
     this.camera.getPicture(options).then((imageData) => {
      // imageData is either a base64 encoded string or a file URI
-     // If it's base64 (DATA_URL):
-     let base64Image = 'data:image/jpeg;base64,' + imageData;
+     // If it's base64 (DATA_URL):     
+      this.awsServices.uploadPictureToS3(imageData, "testeImagem.jpg");     
     }, (err) => {
      // Handle error
     });
