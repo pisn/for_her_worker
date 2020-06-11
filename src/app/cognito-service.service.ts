@@ -3,8 +3,7 @@ import * as AWSCognito from 'amazon-cognito-identity-js';
 import Amplify, {Auth} from 'aws-amplify';
 import * as aws from 'aws-sdk';
 import { reject } from 'q';
-import { AwsApiConnectService } from './aws-api-connect.service';
-
+import {Buffer} from 'buffer';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +29,47 @@ export class CognitoServiceService {
     return this.user.getUsername();
   }
 
-  signUp(email: string, name:string, birthDate:string, password: string, cpf: string,  address:string) {
+  uploadPictureToS3(image, imageName){
+    return new Promise((resolve, reject) => {    
+      let base64Image = 'data:image/jpeg;base64,' + image;
+      
+      const body = Buffer.from(base64Image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+
+      aws.config.region = 'ca-central-1';
+          aws.config.credentials = new aws.Credentials({
+            accessKeyId:  "AKIATSVHE7R5WYSRPDKR",
+            secretAccessKey: "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"
+      });
+  
+      var s3 = new aws.S3({
+        apiVersion: "2006-03-01",
+        params: { Bucket: "forher-prestadora-profilepictures" }
+      }); 
+      
+  
+      var data = {
+        Bucket: "forher-prestadora-profilepictures",
+        Key: imageName,
+        Body: body,
+        ContentEncoding: "base64",
+        ContentType: "image/jpeg"
+      };
+
+      
+  
+      s3.putObject(data, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+    });
+  }
+
+  signUp(email: string, name:string, birthDate:string, password: string, cpf: string,  address:string, base64Photo: any) {
+    var cognitoService = this;
+
     return new Promise((resolved, reject) => {
       const userPool = new AWSCognito.CognitoUserPool(this._POOL_DATA);
 
@@ -47,7 +86,9 @@ export class CognitoServiceService {
         if (err) {
           reject(err);
         } else {
-          resolved(result);
+          cognitoService.uploadPictureToS3(base64Photo, "profilePicture_" + result.userSub + ".jpg");  
+
+          resolved(result);             
         }
       });
     });
@@ -186,6 +227,6 @@ export class CognitoServiceService {
   }
 
   constructor() { 
-    this.isConnected = false;
+    this.isConnected = false;    
   }
 }

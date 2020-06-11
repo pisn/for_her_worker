@@ -34,6 +34,7 @@ export class RegisterPage implements OnInit {
   emailInput : string;
   senhaInput : string;
   cepWorked : boolean;
+  base64Photo: any;
   
   @ViewChild("numeroInputEdit") public numeroInputRef: ElementRef;
 
@@ -189,25 +190,6 @@ export class RegisterPage implements OnInit {
 
   }
 
-  createAccount(){
-    var birthDate = new Date(this.dataNascimentoInput);
-    var birthFormatedString = birthDate.getFullYear() + "-" + GeneralUtilitiesModule.pad(birthDate.getMonth(),2) + "-" + GeneralUtilitiesModule.pad(birthDate.getDay(),2);
-    
-    var fullAdress = this.logradouroInput + ", " + this.numeroInput + (this.complementoInput != "" ? ", " + this.complementoInput : "") + ", " + this.cidadeInput + ", " + this.ufInput;
-
-    this.cognitoService.signUp(this.emailInput,this.nomeInput,birthFormatedString,this.senhaInput, this.unFormat(this.cpfInput.toString()),fullAdress)
-        .then(res => {          
-          this.navCtrl.back();
-          this.toastNotify("Conta criada. Para confirmar sua conta, siga as instruções enviadas por email");
-        },
-        err => {
-          console.log("Register failed at Amazon.");          
-          console.log(err);  
-        })
-
-
-  }
-
   async TesteCamera() {
     const options: CameraOptions = {
       quality: 100,
@@ -221,10 +203,29 @@ export class RegisterPage implements OnInit {
     this.camera.getPicture(options).then((imageData) => {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):     
-      this.awsServices.uploadPictureToS3(imageData, "testeImagem.jpg");     
+      this.base64Photo = imageData;
     }, (err) => {
      // Handle error
     });
   }
+
+  createAccount(){
+    var birthDate = new Date(this.dataNascimentoInput);
+    var birthFormatedString = birthDate.getFullYear() + "-" + GeneralUtilitiesModule.pad(birthDate.getMonth(),2) + "-" + GeneralUtilitiesModule.pad(birthDate.getDay(),2);
+    
+    var fullAdress = this.logradouroInput + ", " + this.numeroInput + (this.complementoInput != "" ? ", " + this.complementoInput : "") + ", " + this.cidadeInput + ", " + this.ufInput;
+
+    this.cognitoService.signUp(this.emailInput,this.nomeInput,birthFormatedString,this.senhaInput, this.unFormat(this.cpfInput.toString()),fullAdress, this.base64Photo)
+        .then(res => {          
+          this.navCtrl.back();
+          this.toastNotify("Conta criada. Para confirmar sua conta, siga as instruções enviadas por email");
+        },
+        err => {
+          console.log("Register failed at Amazon.");          
+          console.log(err);  
+        })
+
+
+  }  
 
 }

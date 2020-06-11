@@ -4,7 +4,6 @@ import { CognitoServiceService } from './cognito-service.service';
 import { HttpHeaders } from '@angular/common/http';
 import { Time } from '@angular/common';
 import * as aws from 'aws-sdk';
-import {Buffer} from 'buffer';
 
 @Injectable({
   providedIn: 'root'
@@ -304,42 +303,5 @@ export class AwsApiConnectService {
       
     });
   }
-
-  uploadPictureToS3(image, imageName){
-    return new Promise((resolve, reject) => {    
-      let base64Image = 'data:image/jpeg;base64,' + image;
-      
-      const body = Buffer.from(base64Image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
-
-      aws.config.region = 'ca-central-1';
-          aws.config.credentials = new aws.Credentials({
-            accessKeyId:  "AKIATSVHE7R5WYSRPDKR",
-            secretAccessKey: "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"
-      });
   
-      var s3 = new aws.S3({
-        apiVersion: "2006-03-01",
-        params: { Bucket: "forher-prestadora-profilepictures" }
-      }); 
-      
-  
-      var data = {
-        Bucket: "forher-prestadora-profilepictures",
-        Key: imageName,
-        Body: body,
-        ContentEncoding: "base64",
-        ContentType: "image/jpeg"
-      };
-
-      
-  
-      s3.putObject(data, (err, res) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
-  }
 }
