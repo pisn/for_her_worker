@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'location-select', loadChildren: './location-select/location-select.module#LocationSelectPageModule' },
   { path: 'chat-mana', loadChildren: './chat-mana/chat-mana.module#ChatManaPageModule' },
   { path: 'order-details', loadChildren: './order-details/order-details.module#OrderDetailsPageModule' },
-  { path: 'main', loadChildren: './main/main.module#MainPageModule' }
+  { path: 'main', loadChildren: './main/main.module#MainPageModule' },
+  { path: 'picture-cropper', loadChildren: './picture-cropper/picture-cropper.module#PictureCropperPageModule' }
 ];
 
 @NgModule({

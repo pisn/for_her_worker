@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>PictureCropper</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <image-cropper
+    [imageBase64]="imageBase64"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1/1"
+    format="jpeg"
+    roundCropper="true"
+    cropperMinWidth="100"
+    cropperMaxWidth="100"
+    resizeToWidth="100"
+    resizeToHeight="100"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+  >
+ </image-cropper>
+
+ <ion-button (click)="returnResult()">Confirmar</ion-button>
+
+</ion-content>

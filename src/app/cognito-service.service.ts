@@ -31,9 +31,9 @@ export class CognitoServiceService {
 
   uploadPictureToS3(image, imageName){
     return new Promise((resolve, reject) => {    
-      let base64Image = 'data:image/jpeg;base64,' + image;
+      let base64Image = image.data.replace(/^data:image\/\w+;base64,/, '');
       
-      const body = Buffer.from(base64Image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+      const body = Buffer.from(base64Image, 'base64');
 
       aws.config.region = 'ca-central-1';
           aws.config.credentials = new aws.Credentials({

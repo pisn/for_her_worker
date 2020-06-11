@@ -18,17 +18,23 @@ import { LocationSelectPageModule } from './location-select/location-select.modu
 import { ChatManaPage } from './chat-mana/chat-mana.page';
 import {ServicesHandlerService} from './services-handler.service';
 import { Camera } from '@ionic-native/camera/ngx';
+import { PictureCropperPage } from './picture-cropper/picture-cropper.page';
+import { PictureCropperPageModule } from './picture-cropper/picture-cropper.module';
 
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [LocationSelectPage],  
+  entryComponents: [
+    LocationSelectPage,
+    PictureCropperPage
+  ],  
   imports: [
     BrowserModule,    
     IonicModule.forRoot(),
     AppRoutingModule,    
     HttpClientModule, 
-    LocationSelectPageModule    
+    LocationSelectPageModule,
+    PictureCropperPageModule       
   ],
   providers: [
     StatusBar,
@@ -41,7 +47,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     ModalController,
     NavController,
     ServicesHandlerService,
-    LocationSelectPage,     
+    LocationSelectPage,    
+    PictureCropperPage, 
     ChatManaPage,
     Geolocation,
     Platform,
