@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>register</ion-title>
+    <ion-title>Registre-se</ion-title>
     
   </ion-toolbar>
 </ion-header>
@@ -11,32 +11,36 @@
 <ion-content>
   <ion-img src="/assets/laugh.jpg"></ion-img>
   <ion-grid>
-    <ion-row >
-      <ion-col>
-        <ion-item>
-          <ion-label position="floating">Nome Completo</ion-label>
-          <ion-input [(ngModel)] = "nomeInput"></ion-input> 
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>    
-      <ion-col>      
-        <ion-datetime [(ngModel)] = "dataNascimentoInput" [monthNames] = "customMonthNames" placeholder="Data de Nascimento" display-format="D MMMM YYYY" picker-format="DD MMMM YYYY" ></ion-datetime>
-      </ion-col>
-    </ion-row>
     <ion-row>
-      <ion-col>
-          <ion-item>
-            <ion-label position="floating">CPF</ion-label>
-            <ion-input [(ngModel)]="cpfInput" (focusout)="formatCpf()"></ion-input>
-          </ion-item>
+      <ion-col size="3">                               
+        <img class="profile-picture" (click)="TakeProfilePicture()" [src]="base64Photo" />        
       </ion-col>
-    </ion-row>
-    <ion-row>
       <ion-col>
-          <ion-button (click)="TesteCamera()">Teste Camera</ion-button>
+        <ion-grid>
+          <ion-row >      
+            <ion-col>
+              <ion-item>
+                <ion-label position="floating">Nome Completo</ion-label>
+                <ion-input [(ngModel)] = "nomeInput"></ion-input> 
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>    
+            <ion-col>      
+              <ion-datetime [(ngModel)] = "dataNascimentoInput" [monthNames] = "customMonthNames" placeholder="Data de Nascimento" display-format="D MMMM YYYY" picker-format="DD MMMM YYYY" ></ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                <ion-item>
+                  <ion-label position="floating">CPF</ion-label>
+                  <ion-input [(ngModel)]="cpfInput" (focusout)="formatCpf()"></ion-input>
+                </ion-item>
+            </ion-col>
+          </ion-row>            
+        </ion-grid>
       </ion-col>
-    </ion-row>
+    </ion-row>          
     <ion-row>
       <ion-col>
         <ion-item>

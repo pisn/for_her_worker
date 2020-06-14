@@ -13,6 +13,7 @@ export class CognitoServiceService {
   userAttributes: any;  
   userName:any;
   userSession : AWSCognito.CognitoUserSession;
+  profilePicture: any;
   isConnected : boolean;  
 
   //replace the value with actual value 
@@ -31,7 +32,7 @@ export class CognitoServiceService {
 
   uploadPictureToS3(image, imageName){
     return new Promise((resolve, reject) => {    
-      let base64Image = image.data.replace(/^data:image\/\w+;base64,/, '');
+      let base64Image = image.replace(/^data:image\/\w+;base64,/, '');
       
       const body = Buffer.from(base64Image, 'base64');
 
@@ -62,6 +63,41 @@ export class CognitoServiceService {
           reject(err);
         } else {
           resolve(res);
+        }
+      });
+    });
+  }
+
+  downloadPictureFromS3(){
+    return new Promise((resolve, reject) => {    
+          aws.config.region = 'ca-central-1';
+          aws.config.credentials = new aws.CognitoIdentityCredentials({
+            IdentityPoolId: "ca-central-1:fbe56063-50a8-41ff-a26c-fbff006383f9",
+            Logins: {
+              'cognito-idp.ca-central-1.amazonaws.com/ca-central-1_HPRUy2uqY' : this.getUserSession().getIdToken().getJwtToken()
+            }
+          });      
+  
+      var s3 = new aws.S3({
+        apiVersion: "2006-03-01",
+        params: { Bucket: "forher-prestadora-profilepictures" }
+      }); 
+      
+  
+      var data = {
+        Bucket: "forher-prestadora-profilepictures",
+        Key: 'profilePicture_' + this.getUserId() + '.jpg'        
+      };
+      
+  
+      s3.getObject(data, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          let base64String= (res.Body as Buffer).toString('base64')
+          let src = "data:image/jpeg;base64,"+base64String;
+
+          resolve(src);
         }
       });
     });
@@ -124,12 +160,20 @@ export class CognitoServiceService {
             
             const payload = {};
             attrs.forEach(attr => (payload[attr.getName()] = attr.getValue()));            
-            this.userAttributes = payload
-            console.log(this.userAttributes);
+            this.userAttributes = payload;            
             this.userName = this.userAttributes['name'];
           });
 
-          resolved(result);
+          let profilePictureDownloadPromise = this.downloadPictureFromS3();
+          
+          profilePictureDownloadPromise.then((data) => {
+            this.profilePicture = data;
+          })
+
+          Promise.all([profilePictureDownloadPromise]).then((allResolved) => {
+            resolved(result); //Esperar picture voltar pra liberar o resolve
+          });
+          
         },
         onFailure: err => {
           reject(err);

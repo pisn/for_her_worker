@@ -13,6 +13,7 @@ import {ServicesHandlerService} from '../services-handler.service';
 export class PerfilPage implements OnInit {
 
   cpf: string;    
+  profilePicture: any;
   subservices: Array<any>;
   subservicesShow: Array<any>;
   services:Array<any>;
@@ -30,6 +31,7 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.updateAllInfo();
+    this.profilePicture = this.cognitoService.profilePicture;    
   }   
 
   updateAllInfo() {
@@ -60,7 +62,7 @@ export class PerfilPage implements OnInit {
     Promise.all([promiseProfile, promiseDetails, promiseServices, promiseSubservices]).then(() => {
         this.assembleList();
     });
-  }
+  }srcsrc
 
   assembleList(){   
 

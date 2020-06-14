@@ -19,16 +19,6 @@ export class RegisterPage implements OnInit {
   maskedId: any;
   DECIMAL_SEPARATOR=".";
   GROUP_SEPARATOR=",";
-
-  constructor(private cognitoService : CognitoServiceService, 
-              private navCtrl : NavController, 
-              private modalCtrl: ModalController,
-              private toastController : ToastController, 
-              private httpService: HttpService, 
-              private camera: Camera, 
-              private awsServices : AwsApiConnectService) {     
-  }
-
   nomeInput: string;
   dataNascimentoInput: string;
   cpfInput : string;
@@ -41,9 +31,23 @@ export class RegisterPage implements OnInit {
   emailInput : string;
   senhaInput : string;
   cepWorked : boolean;
-  base64Photo: any;
+  base64Photo: any;  
   
   @ViewChild("numeroInputEdit") public numeroInputRef: ElementRef;
+
+
+  constructor(private cognitoService : CognitoServiceService, 
+              private navCtrl : NavController, 
+              private modalCtrl: ModalController,
+              private toastController : ToastController, 
+              private httpService: HttpService, 
+              private camera: Camera) {     
+  }
+
+  ngOnInit() {
+    this.base64Photo = "/assets/testAvatar.png";
+  }
+  
 
   customMonthNames = [
     'Janeiro',
@@ -183,9 +187,7 @@ export class RegisterPage implements OnInit {
 
     return val.replace(/-/g,'');
   }
-
-  ngOnInit() {
-  }
+  
 
   async toastNotify(message : string){
     const toast = await this.toastController.create({            
@@ -197,7 +199,7 @@ export class RegisterPage implements OnInit {
 
   }
 
-  async TesteCamera() {
+  async TakeProfilePicture() {
     const options: CameraOptions = {
       quality: 100,      
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -222,7 +224,7 @@ export class RegisterPage implements OnInit {
       await modal.present();
       
       modal.onDidDismiss().then ((croppedPhoto) => {
-        this.base64Photo = croppedPhoto;        
+        this.base64Photo = croppedPhoto.data;                
       });
 
     }, (err) => {
