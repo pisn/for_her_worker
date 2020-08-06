@@ -51,7 +51,7 @@ export class AwsApiConnectService {
         headers : new HttpHeaders(headersDict)
       };              
       
-      this.httpService.getHttpClient().get(this.API_URL + "serviceorderbyuser?userId=" + this.cognitoService.getUserId())
+      this.httpService.getHttpClient().get(this.API_URL + "serviceorderbyprestadora", requestOptions)
               .subscribe((result: any) => {                   
                   resolve(result);                    
               },

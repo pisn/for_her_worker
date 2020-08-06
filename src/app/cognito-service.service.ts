@@ -68,7 +68,7 @@ export class CognitoServiceService {
     });
   }
 
-  downloadPictureFromS3(){
+  downloadPrestadoraPictureFromS3(prestadoraId){
     return new Promise((resolve, reject) => {    
           aws.config.region = 'ca-central-1';
           aws.config.credentials = new aws.CognitoIdentityCredentials({
@@ -86,7 +86,7 @@ export class CognitoServiceService {
   
       var data = {
         Bucket: "forher-prestadora-profilepictures",
-        Key: 'profilePicture_' + this.getUserId() + '.jpg'        
+        Key: 'profilePicture_' + prestadoraId + '.jpg'        
       };
       
   
@@ -164,7 +164,7 @@ export class CognitoServiceService {
             this.userName = this.userAttributes['name'];
           });
 
-          let profilePictureDownloadPromise = this.downloadPictureFromS3();
+          let profilePictureDownloadPromise = this.downloadPrestadoraPictureFromS3(this.getUserId());
           
           profilePictureDownloadPromise.then((data) => {
             this.profilePicture = data;
