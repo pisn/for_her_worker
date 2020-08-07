@@ -53,7 +53,7 @@ export class ChatManaPage implements OnInit {
 
   async createConversation() {
     await API.graphql(graphqlOperation(mutations.createConversation, {id: this.order.serviceId, name : this.order.serviceId}))
-    await API.graphql(graphqlOperation(mutations.createUserConversations, {conversationId: this.order.serviceId, userId: this.order.prestadora.prestadoraId }))
+    await API.graphql(graphqlOperation(mutations.createUserConversations, {conversationId: this.order.serviceId, userId: this.order.cliente.clienteId }))
     await API.graphql(graphqlOperation(mutations.createUserConversations, {conversationId: this.order.serviceId, userId: this.cognitoService.getUserId() }))  
   }
 

@@ -17,16 +17,16 @@ platformBrowserDynamic().bootstrapModule(AppModule)
     Auth: {
 
         // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-        identityPoolId: 'ca-central-1:1aa43394-222b-4c1c-a8dc-53f91f4effd9',
+        identityPoolId: 'ca-central-1:fbe56063-50a8-41ff-a26c-fbff006383f9',
         
         // REQUIRED - Amazon Cognito Region
         region: 'ca-central-1',        
 
         // OPTIONAL - Amazon Cognito User Pool ID
-        userPoolId: 'ca-central-1_UKTkSiKAR',
+        userPoolId: 'ca-central-1_HPRUy2uqY',
 
         // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-        userPoolWebClientId: '618ibf867ggo4erplu002t6vf8'
+        userPoolWebClientId: '628jthv5lkgv94pp8cntjgps54'
     }
   });
 
