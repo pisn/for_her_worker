@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CommonUtilsService} from '../common-utils.service';
 import {Router, NavigationExtras} from '@angular/router';
+import { AwsApiConnectService } from '../aws-api-connect.service';
 
 @Component({
   selector: 'app-order-details',
@@ -9,12 +10,12 @@ import {Router, NavigationExtras} from '@angular/router';
 })
 export class OrderDetailsPage implements OnInit {
 
-  order: any;
+  order: any;  
   
-  constructor(private router : Router, private utils: CommonUtilsService) { }
+  constructor(private router : Router, private utils: CommonUtilsService, private awsApiConnectService: AwsApiConnectService) { }
 
-  ngOnInit() {
-    this.order = this.router.getCurrentNavigation().extras.state.order;
+  ngOnInit() {    
+    this.order = this.router.getCurrentNavigation().extras.state.order;    
 
     this.order.totalPrice = 0;
     if(this.order.prestadora.distancePrice > 0){
@@ -53,5 +54,12 @@ export class OrderDetailsPage implements OnInit {
     
     this.router.navigate(['chat-mana'], extras);
   }
+
+  acceptOrder(order) {
+    order.status = "Agendado";
+    delete order.profilePicture;
+    this.awsApiConnectService.updateServiceOrder(order);
+  }
+  
 
 }

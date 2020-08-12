@@ -12,7 +12,7 @@
             <ion-card-content>
               <ion-grid>
                   <ion-row>
-                    <ion-col><ion-img src="/assets/testAvatar.png" ></ion-img></ion-col>
+                    <ion-col><ion-img class="profile-picture" [src]="order.profilePicture" ></ion-img></ion-col>
                     <ion-col size="9"> 
                       <ion-grid>
                         <ion-row>
@@ -81,11 +81,20 @@
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-button (click)="openChat(order)">
-                  <font size="6"><ion-icon name="chatbubbles"></ion-icon></font>
-                  <br>
-                  Chat
-                </ion-button>      
+                <ion-col>
+                  <ion-button (click)="openChat(order)">
+                    <font size="6"><ion-icon name="chatbubbles"></ion-icon></font>
+                    <br>
+                    Chat
+                  </ion-button>      
+                </ion-col>
+                <ion-col>
+                  <ion-button *ngIf="order.status == 'Em Aberto'" color="secondary" (click)="acceptOrder(order)">
+                    <font size="6"><ion-icon name="checkmark-circle-outline"></ion-icon></font>
+                    <br>
+                    Aceitar serviço
+                  </ion-button>      
+                </ion-col>
               </ion-row>
           </ion-card-content>            
         </ion-card>  

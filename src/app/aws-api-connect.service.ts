@@ -111,11 +111,11 @@ export class AwsApiConnectService {
       });
   }
 
-  setNewServiceOrder(prestadora: any, subservices : Array<string>, chosenDate : Date, chosenTime: string, details: string, location: Array<any>){
+  updateServiceOrder(order: any){
 
     return new Promise((resolve,reject) => {
       var headersDict = {
-        'Accept': "application/json", 
+        'Content-Type': "application/json", 
         'Authorization': this.cognitoService.getUserSession().getIdToken().getJwtToken().toString()
       };
       
@@ -123,33 +123,13 @@ export class AwsApiConnectService {
         headers : new HttpHeaders(headersDict)
       };              
 
-      var prestadoraFiltered = {
-        coordinates: prestadora.coordinates,
-        distance: prestadora.distance,
-        distancePrice : Number.parseFloat(prestadora.distancePrice.toFixed(2)),        
-        freeDistance: prestadora.freeDistance,
-        kilometerPrice : prestadora.kilometerPrice,
-        nome: prestadora.nome,
-        prestadoraId: prestadora.prestadoraId
-      }
-
-      var requestBody = {
-          table: "serviceOrders",
-          item: {
-            userId: this.cognitoService.getUserId(),            
-            location: location,
-            chosenSubservices: subservices,            
-            chosenDate : chosenDate,
-            chosenTime : chosenTime,
-            prestadora: prestadoraFiltered,            
-            details : details,             
-            status: "Em Aberto"            
-          }
+     var requestBody = {                    
+          order
       };
       
       console.log(JSON.stringify(requestBody).toString());
 
-      this.httpService.getHttpClient().post(this.API_URL + "serviceorder", JSON.stringify(requestBody),requestOptions)
+      this.httpService.getHttpClient().post(this.API_URL + "setserviceorderprestadora", JSON.stringify(requestBody),requestOptions)
               .subscribe((result: any) => {                    
                   resolve(result);                    
               },

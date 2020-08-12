@@ -25,6 +25,9 @@
                 <p class="line-breaker ">{{msg.content}}</p>
               </div>
             </div>
+            <div class="msg-info" *ngIf="msg.showDetails==true">
+              <p>{{formatTime(msg.createdAt)}}</p>
+            </div>
           </div>
           <div class="message-right" *ngIf="msg.sender == chatUser.cognitoId">            
             <div class="msg-detail">              
